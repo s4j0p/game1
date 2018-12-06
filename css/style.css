@@ -2,7 +2,8 @@ body{
     background-color:black;
     color:lightgray;
     font-size:28px;
-
+    font-family: 'Inconsolata', monospace;
+    font-weight:700;
 }
 #pojemnik{
     width:900px;
@@ -40,4 +41,23 @@ body{
     float:left;
     cursor:pointer;
     border-radius:15px;
+}
+.litera:hover{
+    background-color: #222222;
+    color:white;
+    border: 3px solid white;
+}
+
+.reset{
+    color:green;
+    cursor: pointer;
+    font-size:40px;
+    border:3px solid green;
+    padding:20px;
+    margin-top:20px;
+}
+.reset:hover{
+    color:white;
+    background-color:green;
+    border:3px solid white;
 }

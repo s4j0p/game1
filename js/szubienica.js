@@ -3,6 +3,7 @@ var haslo = "Bez pracy nie ma kołaczy";
 haslo = haslo.toUpperCase();
 
 var dlugosc = haslo.length;
+var ile_skuch = 0;
 
 var haslo1 = "";
 
@@ -62,10 +63,58 @@ function start()
 var tresc_diva ="";
 for (i=0; i<=34; i++)
 {
-    tresc_diva = tresc_diva + '<div class="litera">'+litery[i]+'</div>';
+    var element = "lit" + i;
+    tresc_diva = tresc_diva + '<div class="litera" onclick="sprawdz('+i+')" id="'+element+'">'+litery[i]+'</div>';
     if((i+1) % 7==0)tresc_diva = tresc_diva +'<div style="clear:both;"></div>';
 }
 document.getElementById("alfabet").innerHTML = tresc_diva;
 
 wypisz_haslo();
+}
+
+String.prototype.ustawZnak = function(miejsce, znak)
+{
+    if(miejsce > this.length -1) return this.toString();
+    else return this.substr(0, miejsce) + znak + this.substr(miejsce + 1);
+}
+
+function sprawdz(nr)
+{
+    var trafiona = false;
+    for(i=0; i<dlugosc; i++){
+        if (haslo.charAt(i)==litery[nr])
+        {
+           haslo1 = haslo1.ustawZnak(i,litery[nr]);
+           trafiona = true;
+        }
+    }
+    if(trafiona == true)
+    {
+        var element = "lit" + nr;
+        document.getElementById(element).style.background = "#003300";   
+        document.getElementById(element).style.color = "#00C000";   
+        document.getElementById(element).style.border = "3px solid #00C000"; 
+        document.getElementById(element).style.coursor = "default";     
+        wypisz_haslo()
+    }
+    else {
+        var element = "lit" + nr;
+        document.getElementById(element).style.background = "#330000";   
+        document.getElementById(element).style.color = "#C00000";   
+        document.getElementById(element).style.border = "3px solid #C00000"; 
+        document.getElementById(element).style.coursor = "default";  
+        document.getElementById(element).setAttribute("onclick",";");
+        //shucha
+        ile_skuch++;
+        var obraz = "img/s" +ile_skuch + ".jpg";
+        document.getElementById("szubienica").innerHTML = '<img src="'+obraz+'" alt="" />';
+    }
+    //wygrana
+
+    if(haslo == haslo1)
+    document.getElementById("alfabet").innerHTML = "Prawidłowe hasło!  " +haslo+'<br /><br /><span class="reset" onclick="location.reload()";> JESZCZE RAZ?<Sspan>';
+    
+    //pzzegrana
+    if(ile_skuch>=9)
+    document.getElementById("alfabet").innerHTML = "Przykro mi! zawsze możesz sprobować jeszcze raz "+' <br /><br /><span class="reset" onclick="location.reload()";> JESZCZE RAZ?<Sspan>';
 }
